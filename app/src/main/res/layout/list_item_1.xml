@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="Hooyo"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <ImageButton
+        android:id="@+id/minus"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/left_round_corner"
+        android:padding="8dp"
+        android:src="@drawable/ic_remove_black_24dp"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:background="#ccc"
+        android:gravity="center_vertical"
+        android:text="1"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <ImageButton
+        android:id="@+id/plus"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/right_round_corner"
+        android:padding="8dp"
+        android:src="@drawable/ic_add_black_24dp" />
+</LinearLayout>
