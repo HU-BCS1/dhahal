@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
                 v.findViewById<RecyclerView>(R.id.list).apply {
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(context)
-                    adapter = DialogAdapter(ArrayList(calculateAsaba()))
+                    adapter = DialogAdapter(ArrayList(calculateAsaba(e.value * 100)))
                 }
 
                 val builder = AlertDialog.Builder(context)
@@ -133,32 +133,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun calculateAsaba() : List<AsabaCut> {
+    private fun calculateAsaba(base: Float) : List<AsabaCut> {
         val males = asaba.values.filter { it.gender == Gender.Male }
         val females = asaba.values.filter { it.gender == Gender.Female }
 
         val maleCount = males.sumBy { it.count }
         val femaleCount = females.sumBy { it.count }
 
-        var numberCuts = 0
 
-        val (maleCuts, femaleCuts) =
-            if(maleCount == 0 || femaleCount == 0) {
-                numberCuts = maleCount + femaleCount
-                Pair(males.map { AsabaCut(it.name, 1f/ numberCuts) },
-                    females.map { AsabaCut(it.name, 1f/ numberCuts) })
-            }
-            else {
-                numberCuts = maleCount + (2 * femaleCount)
-                Pair(males.map { AsabaCut(it.name, 2f/ numberCuts) },
-                    females.map { AsabaCut(it.name, 1f/ numberCuts) })
-            }
+        val numberCuts = (2 * maleCount) + femaleCount
+        val maleCuts = males.map { AsabaCut(it.name, ((2f * it.count)/ numberCuts) * base) }
+        val femaleCuts = females.map { AsabaCut(it.name, ((1f * it.count)/ numberCuts) * base) }
 
-        var base = 100f
-        entries.filter { it.label == "Casaba" }
-               .forEach { base = it.value * 100 }
-
-        return  (maleCuts + femaleCuts).map { it.cut *= base; it }
+        return  (maleCuts + femaleCuts)
     }
 
     private fun updateChart() {
